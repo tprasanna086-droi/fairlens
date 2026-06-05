@@ -9,7 +9,7 @@ from fastapi import FastAPI, File, Form, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from audit import run_full_audit, compute_intersectional_analysis
+from audit import run_full_audit, compute_intersectional_analysis, compute_tradeoff_curve
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEMO_DATA_PATH = os.path.join(BASE_DIR, "data", "nepal_clean.csv")
@@ -239,6 +239,34 @@ async def demo_intersectional():
     except Exception as e:
         return _error(f"Demo intersectional analysis failed: {e}", status_code=500)
 
+    return result
+
+
+_tradeoff_cache = None
+
+
+@app.get("/demo/tradeoff")
+async def demo_tradeoff():
+    global _tradeoff_cache
+    if _tradeoff_cache is not None:
+        return _tradeoff_cache
+
+    if not os.path.exists(DEMO_DATA_PATH):
+        return _error(f"Demo dataset not found at {DEMO_DATA_PATH}", status_code=500)
+
+    try:
+        df = pd.read_csv(DEMO_DATA_PATH)
+    except Exception as e:
+        return _error(f"Failed to load demo dataset: {e}", status_code=500)
+
+    try:
+        result = compute_tradeoff_curve(
+            df, target_col="has_account", protected_col="is_female"
+        )
+    except Exception as e:
+        return _error(f"Demo tradeoff computation failed: {e}", status_code=500)
+
+    _tradeoff_cache = result
     return result
 
 

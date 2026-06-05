@@ -7,7 +7,8 @@ import GaugeChart from './components/GaugeChart'
 import ShapChart from './components/ShapChart'
 import ConflictBanner from './components/ConflictBanner'
 import IntersectionalChart from './components/IntersectionalChart'
-import { fetchDemoIntersectional } from './utils/api'
+import TradeoffCurve from './components/TradeoffCurve'
+import { fetchDemoIntersectional, fetchDemoTradeoff } from './utils/api'
 
 const STATUS_TEXT = {
   fair: 'text-green-600',
@@ -45,6 +46,8 @@ export default function App() {
   const [isDemo, setIsDemo] = useState(false)
   const [intersectional, setIntersectional] = useState(null)
   const [intersectionalLoading, setIntersectionalLoading] = useState(false)
+  const [tradeoff, setTradeoff] = useState(null)
+  const [tradeoffLoading, setTradeoffLoading] = useState(false)
 
   useEffect(() => {
     setAuditResult(null)
@@ -52,6 +55,8 @@ export default function App() {
     setIsDemo(false)
     setIntersectional(null)
     setIntersectionalLoading(false)
+    setTradeoff(null)
+    setTradeoffLoading(false)
   }, [file])
 
   const handleDemoResult = (data) => {
@@ -60,10 +65,16 @@ export default function App() {
     setError(null)
     setIntersectional(null)
     setIntersectionalLoading(true)
+    setTradeoff(null)
+    setTradeoffLoading(true)
     fetchDemoIntersectional()
       .then((d) => setIntersectional(d))
       .catch((e) => console.warn('Intersectional fetch failed:', e))
       .finally(() => setIntersectionalLoading(false))
+    fetchDemoTradeoff()
+      .then((d) => setTradeoff(d))
+      .catch((e) => console.warn('Tradeoff fetch failed:', e))
+      .finally(() => setTradeoffLoading(false))
   }
 
   const handleUploadResult = (data) => {
@@ -224,6 +235,33 @@ export default function App() {
                       data={intersectional}
                       title="Intersectional Analysis: Gender × Income"
                       subtitle="Approval rates by combined demographic group"
+                    />
+                  ) : null}
+                </section>
+              )}
+
+              {isDemo && (
+                <section>
+                  <div className="mb-3">
+                    <h2 className="text-lg font-semibold text-slate-900">
+                      The Cost of Fairness
+                    </h2>
+                    <p className="text-sm text-slate-500">
+                      Based on Hardt et al. (2016) — equality of opportunity
+                      in supervised learning.
+                    </p>
+                  </div>
+                  {tradeoffLoading ? (
+                    <div className="bg-white rounded-lg border border-slate-200 p-5">
+                      <div className="h-5 w-48 bg-slate-200 rounded animate-pulse mb-2" />
+                      <div className="h-4 w-64 bg-slate-200 rounded animate-pulse mb-4" />
+                      <div className="h-64 bg-slate-100 rounded animate-pulse" />
+                    </div>
+                  ) : tradeoff ? (
+                    <TradeoffCurve
+                      data={tradeoff}
+                      title="The Fairness-Accuracy Tradeoff"
+                      subtitle="What does it cost to make this model fair?"
                     />
                   ) : null}
                 </section>

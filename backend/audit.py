@@ -4,6 +4,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import shap
+import xgboost as xgb
 from typing import Dict, List, Tuple, Any
 
 RANDOM_STATE = 42
@@ -239,4 +240,97 @@ def compute_intersectional_analysis(
         'least_disadvantaged': least,
         'max_gap': max_gap,
         'intersectional_insight': insight,
+    }
+
+
+def compute_tradeoff_curve(
+    df: pd.DataFrame, target_col: str, protected_col: str
+) -> Dict[str, Any]:
+    """Compute the fairness-accuracy tradeoff curve via sample reweighting."""
+    X, y, protected_all = load_and_prepare(df, target_col, protected_col)
+
+    X_train, X_test, y_train, y_test, protected_train, protected_test = train_test_split(
+        X, y, protected_all,
+        test_size=0.2,
+        random_state=RANDOM_STATE,
+        stratify=y,
+    )
+
+    y_train_arr = y_train.values
+    y_test_arr = y_test.values
+
+    g0_train_rate = float(y_train_arr[protected_train == 0].mean())
+    g1_train_rate = float(y_train_arr[protected_train == 1].mean())
+    disadvantaged = 0 if g0_train_rate < g1_train_rate else 1
+
+    n_train = len(y_train_arr)
+    base_weights = np.ones(n_train)
+    constraint_levels = np.linspace(0.0, 0.9, 10)
+
+    curve = []
+    for t in constraint_levels:
+        weights = base_weights.copy()
+        if t > 0:
+            mask_dis = protected_train == disadvantaged
+            weights[mask_dis] *= (1.0 + t * 2.0)
+            weights[~mask_dis] *= max(0.0, 1.0 - t * 0.5)
+            total = weights.sum()
+            if total > 0:
+                weights = weights / total * n_train
+
+        model = xgb.XGBClassifier(
+            random_state=RANDOM_STATE,
+            eval_metric='logloss',
+            verbosity=0,
+        )
+        model.fit(X_train, y_train, sample_weight=weights)
+        y_pred = model.predict(X_test)
+
+        accuracy = float((y_pred == y_test_arr).mean())
+        g0_pred = float(y_pred[protected_test == 0].mean())
+        g1_pred = float(y_pred[protected_test == 1].mean())
+        dp = float(abs(g0_pred - g1_pred))
+
+        curve.append({
+            'constraint': float(round(t, 2)),
+            'accuracy': accuracy,
+            'demographic_parity': dp,
+            'label': 'No constraint' if t == 0 else f"{int(round(t * 100))}% constraint",
+        })
+
+    baseline_accuracy = curve[0]['accuracy']
+    baseline_parity = curve[0]['demographic_parity']
+
+    min_parity_point = min(curve, key=lambda p: p['demographic_parity'])
+    fair_threshold_accuracy = min_parity_point['accuracy']
+    min_parity_value = min_parity_point['demographic_parity']
+
+    accuracy_cost = max(0.0, baseline_accuracy - fair_threshold_accuracy)
+
+    cost_pp = accuracy_cost * 100
+    fair_pct = fair_threshold_accuracy * 100
+    base_pct = baseline_accuracy * 100
+    min_parity_pct = min_parity_value * 100
+
+    if min_parity_value < 0.05:
+        insight = (
+            f"Achieving demographic parity (gap < 5%) costs {cost_pp:.1f} pp of accuracy, "
+            f"from {fair_pct:.1f}% to {base_pct:.1f}%. This is the fairness-accuracy "
+            f"tradeoff inherent to this dataset."
+        )
+    else:
+        insight = (
+            f"The lowest achievable parity gap is {min_parity_pct:.1f}% (gap < 5% not reached), "
+            f"costing {cost_pp:.1f} pp of accuracy, from {fair_pct:.1f}% to {base_pct:.1f}%. "
+            f"This is the fairness-accuracy tradeoff inherent to this dataset."
+        )
+
+    return {
+        'curve': curve,
+        'baseline_accuracy': baseline_accuracy,
+        'baseline_parity': baseline_parity,
+        'fair_threshold_accuracy': fair_threshold_accuracy,
+        'min_parity': min_parity_value,
+        'accuracy_cost': accuracy_cost,
+        'insight': insight,
     }

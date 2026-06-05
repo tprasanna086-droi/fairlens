@@ -33,3 +33,9 @@ export async function fetchDemoIntersectional() {
   if (!res.ok) throw new Error('Failed to fetch intersectional')
   return res.json()
 }
+
+export async function fetchDemoTradeoff() {
+  const res = await fetch(`${API_URL}/demo/tradeoff`)
+  if (!res.ok) throw new Error('Failed to fetch tradeoff')
+  return res.json()
+}
