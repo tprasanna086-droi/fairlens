@@ -150,7 +150,7 @@ async def audit(
 
 @app.get("/demo")
 async def demo():
-    csv_path = Path(__file__).parent.parent / "data" / "demo_dataset.csv"
+    csv_path = Path(__file__).parent / "demo_dataset.csv"
     if not csv_path.exists():
         return _error(f"Demo dataset not found at {csv_path}", status_code=500)
 
