@@ -3,6 +3,7 @@ services:
     name: fairlens-api
     runtime: docker
     dockerfilePath: backend/Dockerfile
+    dockerContext: .
     envVars:
       - key: PYTHON_ENV
         value: production

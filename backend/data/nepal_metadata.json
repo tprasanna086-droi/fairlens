@@ -1,0 +1,24 @@
+{
+  "source": "World Bank Global Findex 2021",
+  "country": "Nepal",
+  "n_rows": 895,
+  "target_col": "has_account",
+  "protected_col": "is_female",
+  "feature_cols": [
+    "has_borrowed",
+    "saved",
+    "inc_q",
+    "educ",
+    "age",
+    "is_urban",
+    "is_employed",
+    "has_mobile",
+    "has_internet",
+    "has_digital_payment",
+    "receives_remittances"
+  ],
+  "account_rate_female": 0.5490605427974948,
+  "account_rate_male": 0.6322115384615384,
+  "gender_gap_percentage_points": -8.315099566404363,
+  "year": 2021
+}

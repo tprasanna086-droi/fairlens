@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 
 from audit import run_full_audit, compute_intersectional_analysis, compute_tradeoff_curve
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEMO_DATA_PATH = os.path.join(BASE_DIR, "data", "nepal_clean.csv")
 METADATA_PATH = os.path.join(BASE_DIR, "data", "nepal_metadata.json")
 
