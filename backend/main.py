@@ -192,20 +192,26 @@ async def intersectional(
 
 @app.get("/demo")
 async def demo():
-    if not os.path.exists(DEMO_DATA_PATH):
-        return _error(f"Demo dataset not found at {DEMO_DATA_PATH}", status_code=500)
-
+    import traceback
     try:
-        df = pd.read_csv(DEMO_DATA_PATH)
-    except Exception as e:
-        return _error(f"Failed to load demo dataset: {e}", status_code=500)
+        if not os.path.exists(DEMO_DATA_PATH):
+            return _error(f"Demo dataset not found at {DEMO_DATA_PATH}", status_code=500)
 
-    try:
-        audit_result = run_full_audit(df, target_col="has_account", protected_col="is_female")
-    except Exception as e:
-        return _error(f"Demo audit failed: {e}", status_code=500)
+        try:
+            df = pd.read_csv(DEMO_DATA_PATH)
+        except Exception as e:
+            return _error(f"Failed to load demo dataset: {e}", status_code=500)
 
-    return _build_response(audit_result)
+        try:
+            audit_result = run_full_audit(df, target_col="has_account", protected_col="is_female")
+        except Exception as e:
+            return _error(f"Demo audit failed: {e}", status_code=500)
+
+        return _build_response(audit_result)
+    except Exception as e:
+        error_detail = traceback.format_exc()
+        print(f"DEMO ERROR: {error_detail}", flush=True)
+        return _error(f"Demo endpoint failed: {e}", status_code=500)
 
 
 @app.get("/demo/metadata")
