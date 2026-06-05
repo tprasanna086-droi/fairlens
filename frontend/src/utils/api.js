@@ -27,3 +27,9 @@ export async function fetchDemoMetadata() {
   if (!res.ok) throw new Error('Failed to fetch metadata')
   return res.json()
 }
+
+export async function fetchDemoIntersectional() {
+  const res = await fetch(`${API_URL}/demo/intersectional`)
+  if (!res.ok) throw new Error('Failed to fetch intersectional')
+  return res.json()
+}

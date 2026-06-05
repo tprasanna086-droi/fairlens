@@ -139,3 +139,104 @@ def run_full_audit(df: pd.DataFrame, target_col: str, protected_col: str) -> Dic
         'shap_values': shap_list,
         'conflicts': conflicts,
     }
+
+
+def _value_label(col: str, val) -> str:
+    """Map a (column, value) pair to a human-readable label."""
+    if col == 'is_female':
+        return 'Women' if val == 1 else 'Men'
+    if col == 'inc_q':
+        mapping = {
+            1: 'Quintile 1 (poorest)',
+            2: 'Quintile 2',
+            3: 'Quintile 3',
+            4: 'Quintile 4',
+            5: 'Quintile 5 (richest)',
+        }
+        try:
+            return mapping.get(int(val), f'Quintile {val}')
+        except (ValueError, TypeError):
+            return f'Quintile {val}'
+    if col == 'is_urban':
+        return 'Urban' if val == 1 else 'Rural'
+    return f'{col}={val}'
+
+
+def compute_intersectional_analysis(
+    df: pd.DataFrame, target_col: str, protected_cols: List[str]
+) -> Dict[str, Any]:
+    """Compute approval rates for every combination of protected attributes."""
+    missing = [c for c in protected_cols if c not in df.columns]
+    if missing:
+        raise ValueError(f"Protected columns not in DataFrame: {missing}")
+    if target_col not in df.columns:
+        raise ValueError(f"Target column '{target_col}' not in DataFrame.")
+
+    grouped = (
+        df.groupby(protected_cols)
+        .agg(approval_rate=(target_col, 'mean'), n=(target_col, 'count'))
+        .reset_index()
+    )
+    grouped = grouped[grouped['n'] >= 10].copy()
+
+    if grouped.empty:
+        return {
+            'groups': [],
+            'most_disadvantaged': None,
+            'least_disadvantaged': None,
+            'max_gap': 0.0,
+            'intersectional_insight': 'No groups with n >= 10 were found.',
+        }
+
+    def _label(row) -> str:
+        return ', '.join(_value_label(col, row[col]) for col in protected_cols)
+
+    def _values(row) -> Dict[str, Any]:
+        out: Dict[str, Any] = {}
+        for col in protected_cols:
+            v = row[col]
+            if pd.isna(v):
+                out[col] = None
+            else:
+                try:
+                    out[col] = int(v)
+                except (ValueError, TypeError):
+                    try:
+                        out[col] = float(v)
+                    except (ValueError, TypeError):
+                        out[col] = str(v)
+        return out
+
+    grouped['label'] = grouped.apply(_label, axis=1)
+    grouped = grouped.sort_values('approval_rate', ascending=True).reset_index(drop=True)
+    best = float(grouped['approval_rate'].max())
+    grouped['deviation_from_best'] = grouped['approval_rate'] - best
+
+    groups = []
+    for _, row in grouped.iterrows():
+        groups.append({
+            'label': row['label'],
+            'values': _values(row),
+            'approval_rate': float(row['approval_rate']),
+            'n': int(row['n']),
+            'deviation_from_best': float(row['deviation_from_best']),
+        })
+
+    most = groups[0]['label']
+    least = groups[-1]['label']
+    max_gap = float(groups[-1]['approval_rate'] - groups[0]['approval_rate'])
+    gap_pp = max_gap * 100
+
+    insight = (
+        f"The gap between the most and least advantaged group is {gap_pp:.1f} pp. "
+        f"Low-income women face compounding disadvantage beyond what either "
+        f"gender or income analysis alone would reveal."
+    )
+
+    return {
+        'groups': groups,
+        'most_disadvantaged': most,
+        'least_disadvantaged': least,
+        'max_gap': max_gap,
+        'intersectional_insight': insight,
+    }

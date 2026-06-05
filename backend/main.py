@@ -9,7 +9,7 @@ from fastapi import FastAPI, File, Form, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from audit import run_full_audit
+from audit import run_full_audit, compute_intersectional_analysis
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEMO_DATA_PATH = os.path.join(BASE_DIR, "data", "nepal_clean.csv")
@@ -152,6 +152,44 @@ async def audit(
     return response
 
 
+@app.post("/intersectional")
+async def intersectional(
+    file: UploadFile = File(...),
+    target_col: str = Form(...),
+    protected_cols: str = Form(...),
+):
+    contents = await file.read()
+    if len(contents) > MAX_FILE_SIZE:
+        return _error("File too large; maximum size is 10MB.", status_code=400)
+
+    try:
+        df = _read_csv(contents)
+    except ValueError as e:
+        return _error(str(e), status_code=400)
+
+    if target_col not in df.columns:
+        return _error(f"Target column '{target_col}' not found in CSV.", status_code=400)
+
+    cols = [c.strip() for c in protected_cols.split(",") if c.strip()]
+    if len(cols) < 2:
+        return _error(
+            "protected_cols must contain at least 2 column names separated by commas.",
+            status_code=400,
+        )
+    for c in cols:
+        if c not in df.columns:
+            return _error(f"Protected column '{c}' not found in CSV.", status_code=400)
+
+    try:
+        result = compute_intersectional_analysis(
+            df, target_col=target_col, protected_cols=cols
+        )
+    except Exception as e:
+        return _error(f"Intersectional analysis failed: {e}", status_code=400)
+
+    return result
+
+
 @app.get("/demo")
 async def demo():
     if not os.path.exists(DEMO_DATA_PATH):
@@ -182,6 +220,26 @@ async def demo_metadata():
         return _error(f"Failed to load demo metadata: {e}", status_code=500)
 
     return metadata
+
+
+@app.get("/demo/intersectional")
+async def demo_intersectional():
+    if not os.path.exists(DEMO_DATA_PATH):
+        return _error(f"Demo dataset not found at {DEMO_DATA_PATH}", status_code=500)
+
+    try:
+        df = pd.read_csv(DEMO_DATA_PATH)
+    except Exception as e:
+        return _error(f"Failed to load demo dataset: {e}", status_code=500)
+
+    try:
+        result = compute_intersectional_analysis(
+            df, target_col="has_account", protected_cols=["is_female", "inc_q"]
+        )
+    except Exception as e:
+        return _error(f"Demo intersectional analysis failed: {e}", status_code=500)
+
+    return result
 
 
 @app.get("/columns")

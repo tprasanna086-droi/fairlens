@@ -6,6 +6,8 @@ import MetricCard from './components/MetricCard'
 import GaugeChart from './components/GaugeChart'
 import ShapChart from './components/ShapChart'
 import ConflictBanner from './components/ConflictBanner'
+import IntersectionalChart from './components/IntersectionalChart'
+import { fetchDemoIntersectional } from './utils/api'
 
 const STATUS_TEXT = {
   fair: 'text-green-600',
@@ -41,17 +43,27 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isDemo, setIsDemo] = useState(false)
+  const [intersectional, setIntersectional] = useState(null)
+  const [intersectionalLoading, setIntersectionalLoading] = useState(false)
 
   useEffect(() => {
     setAuditResult(null)
     setError(null)
     setIsDemo(false)
+    setIntersectional(null)
+    setIntersectionalLoading(false)
   }, [file])
 
   const handleDemoResult = (data) => {
     setAuditResult(data)
     setIsDemo(true)
     setError(null)
+    setIntersectional(null)
+    setIntersectionalLoading(true)
+    fetchDemoIntersectional()
+      .then((d) => setIntersectional(d))
+      .catch((e) => console.warn('Intersectional fetch failed:', e))
+      .finally(() => setIntersectionalLoading(false))
   }
 
   const handleUploadResult = (data) => {
@@ -189,6 +201,33 @@ export default function App() {
               </div>
 
               <ShapChart shap={auditResult.shap} />
+
+              {isDemo && (
+                <section>
+                  <div className="mb-3">
+                    <h2 className="text-lg font-semibold text-slate-900">
+                      Beyond Single-Attribute Analysis
+                    </h2>
+                    <p className="text-sm text-slate-500">
+                      Intersectional analysis reveals compounding disadvantage
+                      invisible to single-attribute audits.
+                    </p>
+                  </div>
+                  {intersectionalLoading ? (
+                    <div className="bg-white rounded-lg border border-slate-200 p-5">
+                      <div className="h-5 w-56 bg-slate-200 rounded animate-pulse mb-2" />
+                      <div className="h-4 w-72 bg-slate-200 rounded animate-pulse mb-4" />
+                      <div className="h-64 bg-slate-100 rounded animate-pulse" />
+                    </div>
+                  ) : intersectional ? (
+                    <IntersectionalChart
+                      data={intersectional}
+                      title="Intersectional Analysis: Gender × Income"
+                      subtitle="Approval rates by combined demographic group"
+                    />
+                  ) : null}
+                </section>
+              )}
             </div>
           ) : (
             <div className="h-full min-h-[500px] flex flex-col items-center justify-center text-slate-400">
