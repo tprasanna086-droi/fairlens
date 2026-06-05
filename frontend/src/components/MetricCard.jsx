@@ -14,7 +14,12 @@ function getMainValue(data) {
   return 0
 }
 
-export default function MetricCard({ name, data, description }) {
+function humanizeGroupLabels(text) {
+  if (!text) return text
+  return text.replace(/Group 0/g, 'Men').replace(/Group 1/g, 'Women')
+}
+
+export default function MetricCard({ name, data, description, humanize = false }) {
   const [open, setOpen] = useState(false)
   const style = STATUS_STYLES[data?.status] || STATUS_STYLES.fair
   const mainValue = getMainValue(data)
@@ -47,7 +52,7 @@ export default function MetricCard({ name, data, description }) {
         </div>
 
         <p className="text-sm text-slate-600 leading-relaxed">
-          {data?.plain_english}
+          {humanize ? humanizeGroupLabels(data?.plain_english) : data?.plain_english}
         </p>
 
         <button

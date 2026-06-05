@@ -21,3 +21,9 @@ export async function getColumns(fileId) {
   if (!res.ok) throw new Error(`API error: ${res.status}`)
   return res.json()
 }
+
+export async function fetchDemoMetadata() {
+  const res = await fetch(`${API_URL}/demo/metadata`)
+  if (!res.ok) throw new Error('Failed to fetch metadata')
+  return res.json()
+}

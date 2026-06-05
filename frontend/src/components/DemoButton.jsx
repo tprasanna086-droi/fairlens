@@ -29,10 +29,10 @@ export default function DemoButton({ onResult, onLoading, onError }) {
         {loading && (
           <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
         )}
-        {loading ? 'Loading demo…' : 'Try India Demo Dataset'}
+        {loading ? 'Loading demo…' : 'Try with Nepal Financial Inclusion Data'}
       </button>
       <p className="text-xs text-slate-400 mt-2 text-center">
-        IHDS-II synthetic dataset · gender as protected attribute
+        World Bank Findex 2021 · 895 Nepali adults · Gender as protected attribute
       </p>
     </div>
   )

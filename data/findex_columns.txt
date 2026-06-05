@@ -1,0 +1,977 @@
+==============================================================================
+FAIRLENS — FINDEX 2021 NEPAL DATA INVENTORY
+==============================================================================
+
+Total rows: 1000
+Total columns: 128
+
+--- ALL COLUMNS WITH DTYPE ---
+  economy                                             object
+  economycode                                         object
+  regionwb                                            object
+  pop_adult                                           float64
+  wpid_random                                         int64
+  wgt                                                 float64
+  female                                              int64
+  age                                                 float64
+  educ                                                int64
+  inc_q                                               int64
+  emp_in                                              float64
+  urbanicity_f2f                                      float64
+  account                                             int64
+  account_fin                                         int64
+  account_mob                                         float64
+  fin1_1a                                             float64
+  fin1_1b                                             float64
+  fin2                                                int64
+  fin4                                                float64
+  fin4a                                               float64
+  fin5                                                float64
+  fin6                                                float64
+  fin7                                                float64
+  fin8                                                float64
+  fin8a                                               float64
+  fin8b                                               float64
+  fin9                                                float64
+  fin9a                                               float64
+  fin10                                               float64
+  fin10_1a                                            float64
+  fin10_1b                                            float64
+  fin10_1c                                            float64
+  fin10_1d                                            float64
+  fin10_1e                                            float64
+  fin10a                                              float64
+  fin10b                                              float64
+  fin11_1                                             float64
+  fin11a                                              float64
+  fin11b                                              float64
+  fin11c                                              float64
+  fin11d                                              float64
+  fin11e                                              float64
+  fin11f                                              float64
+  fin11g                                              float64
+  fin11h                                              float64
+  fin13_1a                                            float64
+  fin13_1b                                            float64
+  fin13_1c                                            float64
+  fin13_1d                                            float64
+  fin13_1e                                            float64
+  fin13_1f                                            float64
+  fin13a                                              float64
+  fin13b                                              float64
+  fin13c                                              float64
+  fin13d                                              float64
+  fin14_1                                             int64
+  fin14_2                                             float64
+  fin14_2_China                                       float64
+  fin14a                                              int64
+  fin14a1                                             int64
+  fin14b                                              int64
+  fin14c                                              float64
+  fin14c_2                                            float64
+  fin14c_2_China                                      float64
+  fin16                                               int64
+  fin17a                                              int64
+  fin17a1                                             float64
+  fin17b                                              float64
+  fin20                                               int64
+  fin22a                                              int64
+  fin22b                                              int64
+  fin22c                                              float64
+  fin24                                               int64
+  fin24a                                              float64
+  fin24b                                              float64
+  fin26                                               float64
+  fin27_1                                             float64
+  fin27c1                                             float64
+  fin27c2                                             float64
+  fin28                                               float64
+  fin29_1                                             float64
+  fin29c1                                             float64
+  fin29c2                                             float64
+  fin30                                               int64
+  fin31a                                              float64
+  fin31b                                              float64
+  fin31b1                                             float64
+  fin31b1_China                                       float64
+  fin31c                                              float64
+  fin32                                               int64
+  fin33                                               float64
+  fin34a                                              float64
+  fin34b                                              float64
+  fin34d                                              float64
+  fin34e                                              float64
+  fin35                                               float64
+  fin37                                               int64
+  fin38                                               int64
+  fin39a                                              float64
+  fin39b                                              float64
+  fin39d                                              float64
+  fin39e                                              float64
+  fin42                                               float64
+  fin42a                                              float64
+  fin43a                                              float64
+  fin43b                                              float64
+  fin43d                                              float64
+  fin43e                                              float64
+  fin44a                                              int64
+  fin44b                                              int64
+  fin44c                                              int64
+  fin44d                                              int64
+  fin45                                               float64
+  fin45_1                                             float64
+  fin45_1_China                                       float64
+  saved                                               int64
+  borrowed                                            int64
+  receive_wages                                       int64
+  receive_transfers                                   int64
+  receive_pension                                     int64
+  receive_agriculture                                 float64
+  pay_utilities                                       int64
+  remittances                                         float64
+  mobileowner                                         int64
+  internetaccess                                      int64
+  anydigpayment                                       int64
+  merchantpay_dig                                     float64
+  year                                                int64
+
+--- VALUE COUNTS (columns with fewer than 20 unique values) ---
+
+  [economy]  (1 unique values)
+                             'Nepal': 1000
+
+  [economycode]  (1 unique values)
+                               'NPL': 1000
+
+  [regionwb]  (1 unique values)
+                        'South Asia': 1000
+
+  [pop_adult]  (1 unique values)
+                          20742576.0: 1000
+
+  [female]  (2 unique values)
+                                   1: 546
+                                   2: 454
+
+  [educ]  (3 unique values)
+                                   1: 610
+                                   2: 337
+                                   3: 53
+
+  [inc_q]  (5 unique values)
+                                   5: 272
+                                   4: 214
+                                   3: 175
+                                   1: 171
+                                   2: 168
+
+  [emp_in]  (2 unique values)
+                                 1.0: 739
+                                 2.0: 261
+
+  [urbanicity_f2f]  (2 unique values)
+                                 1.0: 740
+                                 2.0: 260
+
+  [account]  (2 unique values)
+                                   1: 582
+                                   0: 418
+
+  [account_fin]  (2 unique values)
+                                   1: 572
+                                   0: 428
+
+  [account_mob]  (2 unique values)
+                                 0.0: 933
+                                 1.0: 67
+
+  [fin1_1a]  (3 unique values)
+                                 nan: 457
+                                 2.0: 383
+                                 1.0: 157
+                                 3.0: 3
+
+  [fin1_1b]  (3 unique values)
+                                 nan: 457
+                                 2.0: 390
+                                 1.0: 150
+                                 3.0: 3
+
+  [fin2]  (3 unique values)
+                                   2: 824
+                                   1: 174
+                                   3: 2
+
+  [fin4]  (3 unique values)
+                                 nan: 826
+                                 2.0: 107
+                                 1.0: 65
+                                 3.0: 2
+
+  [fin4a]  (2 unique values)
+                                 nan: 935
+                                 2.0: 43
+                                 1.0: 22
+
+  [fin5]  (3 unique values)
+                                 2.0: 463
+                                 nan: 448
+                                 1.0: 87
+                                 3.0: 2
+
+  [fin6]  (3 unique values)
+                                 nan: 448
+                                 2.0: 426
+                                 1.0: 125
+                                 3.0: 1
+
+  [fin7]  (3 unique values)
+                                 2.0: 522
+                                 nan: 448
+                                 1.0: 25
+                                 3.0: 5
+
+  [fin8]  (2 unique values)
+                                 nan: 975
+                                 1.0: 18
+                                 2.0: 7
+
+  [fin8a]  (2 unique values)
+                                 nan: 982
+                                 2.0: 11
+                                 1.0: 7
+
+  [fin8b]  (2 unique values)
+                                 nan: 975
+                                 1.0: 19
+                                 2.0: 6
+
+  [fin9]  (3 unique values)
+                                 nan: 448
+                                 1.0: 278
+                                 2.0: 271
+                                 3.0: 3
+
+  [fin9a]  (2 unique values)
+                                 nan: 722
+                                 2.0: 176
+                                 1.0: 102
+
+  [fin10]  (3 unique values)
+                                 nan: 448
+                                 1.0: 290
+                                 2.0: 261
+                                 3.0: 1
+
+  [fin10a]  (3 unique values)
+                                 nan: 710
+                                 2.0: 146
+                                 1.0: 142
+                                 3.0: 2
+
+  [fin10b]  (2 unique values)
+                                 nan: 448
+                                 1.0: 338
+                                 2.0: 214
+
+  [fin11_1]  (3 unique values)
+                                 nan: 582
+                                 2.0: 220
+                                 1.0: 189
+                                 3.0: 9
+
+  [fin11a]  (3 unique values)
+                                 nan: 552
+                                 2.0: 336
+                                 1.0: 109
+                                 3.0: 3
+
+  [fin11b]  (3 unique values)
+                                 nan: 552
+                                 2.0: 354
+                                 1.0: 76
+                                 3.0: 18
+
+  [fin11c]  (3 unique values)
+                                 nan: 552
+                                 2.0: 341
+                                 1.0: 104
+                                 3.0: 3
+
+  [fin11d]  (3 unique values)
+                                 nan: 552
+                                 2.0: 392
+                                 1.0: 48
+                                 3.0: 8
+
+  [fin11e]  (3 unique values)
+                                 nan: 552
+                                 2.0: 414
+                                 1.0: 23
+                                 3.0: 11
+
+  [fin11f]  (3 unique values)
+                                 nan: 552
+                                 1.0: 339
+                                 2.0: 107
+                                 3.0: 2
+
+  [fin11g]  (3 unique values)
+                                 nan: 552
+                                 2.0: 283
+                                 1.0: 157
+                                 3.0: 8
+
+  [fin11h]  (3 unique values)
+                                 nan: 552
+                                 2.0: 288
+                                 1.0: 150
+                                 3.0: 10
+
+  [fin13a]  (2 unique values)
+                                 nan: 944
+                                 1.0: 44
+                                 2.0: 12
+
+  [fin13b]  (3 unique values)
+                                 nan: 944
+                                 1.0: 34
+                                 2.0: 21
+                                 3.0: 1
+
+  [fin13c]  (3 unique values)
+                                 nan: 944
+                                 2.0: 42
+                                 1.0: 13
+                                 3.0: 1
+
+  [fin13d]  (3 unique values)
+                                 nan: 944
+                                 1.0: 41
+                                 2.0: 14
+                                 3.0: 1
+
+  [fin14_1]  (3 unique values)
+                                   2: 958
+                                   1: 39
+                                   3: 3
+
+  [fin14_2]  (3 unique values)
+                                 nan: 944
+                                 1.0: 32
+                                 2.0: 22
+                                 3.0: 2
+
+  [fin14a]  (3 unique values)
+                                   2: 929
+                                   1: 70
+                                   3: 1
+
+  [fin14a1]  (3 unique values)
+                                   2: 901
+                                   1: 97
+                                   3: 2
+
+  [fin14b]  (3 unique values)
+                                   2: 951
+                                   1: 48
+                                   3: 1
+
+  [fin14c]  (3 unique values)
+                                 nan: 952
+                                 2.0: 26
+                                 3.0: 12
+                                 1.0: 10
+
+  [fin14c_2]  (2 unique values)
+                                 nan: 952
+                                 1.0: 31
+                                 2.0: 17
+
+  [fin16]  (2 unique values)
+                                   2: 859
+                                   1: 141
+
+  [fin17a]  (2 unique values)
+                                   2: 821
+                                   1: 179
+
+  [fin17a1]  (3 unique values)
+                                 nan: 920
+                                 2.0: 66
+                                 1.0: 13
+                                 3.0: 1
+
+  [fin17b]  (3 unique values)
+                                 2.0: 857
+                                 1.0: 142
+                                 3.0: 1
+
+  [fin20]  (3 unique values)
+                                   2: 766
+                                   1: 232
+                                   3: 2
+
+  [fin22a]  (2 unique values)
+                                   2: 860
+                                   1: 140
+
+  [fin22b]  (3 unique values)
+                                   2: 604
+                                   1: 395
+                                   3: 1
+
+  [fin22c]  (2 unique values)
+                                 nan: 858
+                                 2.0: 89
+                                 1.0: 53
+
+  [fin24]  (8 unique values)
+                                   2: 440
+                                   3: 240
+                                   1: 143
+                                   4: 61
+                                   5: 44
+                                   7: 29
+                                   8: 29
+                                   6: 14
+
+  [fin24a]  (4 unique values)
+                                 1.0: 369
+                                 2.0: 357
+                                 3.0: 212
+                                 nan: 58
+                                 4.0: 4
+
+  [fin24b]  (5 unique values)
+                                 1.0: 530
+                                 2.0: 229
+                                 3.0: 148
+                                 nan: 58
+                                 4.0: 32
+                                 5.0: 3
+
+  [fin26]  (3 unique values)
+                                 2.0: 850
+                                 1.0: 149
+                                 3.0: 1
+
+  [fin27_1]  (2 unique values)
+                                 nan: 851
+                                 1.0: 124
+                                 2.0: 25
+
+  [fin27c1]  (2 unique values)
+                                 nan: 975
+                                 2.0: 14
+                                 1.0: 11
+
+  [fin27c2]  (2 unique values)
+                                 nan: 975
+                                 2.0: 17
+                                 1.0: 8
+
+  [fin28]  (3 unique values)
+                                 2.0: 783
+                                 1.0: 213
+                                 3.0: 4
+
+  [fin29_1]  (2 unique values)
+                                 nan: 787
+                                 2.0: 118
+                                 1.0: 95
+
+  [fin29c1]  (2 unique values)
+                                 nan: 882
+                                 1.0: 70
+                                 2.0: 48
+
+  [fin29c2]  (2 unique values)
+                                 nan: 882
+                                 2.0: 72
+                                 1.0: 46
+
+  [fin30]  (3 unique values)
+                                   2: 537
+                                   1: 460
+                                   3: 3
+
+  [fin31a]  (2 unique values)
+                                 nan: 540
+                                 2.0: 421
+                                 1.0: 39
+
+  [fin31b]  (2 unique values)
+                                 nan: 540
+                                 2.0: 423
+                                 1.0: 37
+
+  [fin31b1]  (2 unique values)
+                                 nan: 940
+                                 1.0: 35
+                                 2.0: 25
+
+  [fin31c]  (3 unique values)
+                                 nan: 600
+                                 1.0: 367
+                                 2.0: 32
+                                 3.0: 1
+
+  [fin32]  (3 unique values)
+                                   2: 803
+                                   1: 194
+                                   3: 3
+
+  [fin33]  (2 unique values)
+                                 nan: 806
+                                 2.0: 165
+                                 1.0: 29
+
+  [fin34a]  (2 unique values)
+                                 nan: 806
+                                 2.0: 123
+                                 1.0: 71
+
+  [fin34b]  (2 unique values)
+                                 nan: 806
+                                 2.0: 186
+                                 1.0: 8
+
+  [fin34d]  (2 unique values)
+                                 nan: 877
+                                 1.0: 110
+                                 2.0: 13
+
+  [fin34e]  (2 unique values)
+                                 nan: 987
+                                 2.0: 11
+                                 1.0: 2
+
+  [fin35]  (2 unique values)
+                                 nan: 927
+                                 2.0: 63
+                                 1.0: 10
+
+  [fin37]  (3 unique values)
+                                   2: 831
+                                   1: 132
+                                   3: 37
+
+  [fin38]  (3 unique values)
+                                   2: 958
+                                   1: 41
+                                   3: 1
+
+  [fin39a]  (2 unique values)
+                                 nan: 847
+                                 1.0: 88
+                                 2.0: 65
+
+  [fin39b]  (3 unique values)
+                                 nan: 847
+                                 2.0: 148
+                                 1.0: 4
+                                 3.0: 1
+
+  [fin39d]  (3 unique values)
+                                 nan: 936
+                                 2.0: 33
+                                 1.0: 30
+                                 3.0: 1
+
+  [fin39e]  (2 unique values)
+                                 nan: 966
+                                 2.0: 32
+                                 1.0: 2
+
+  [fin42]  (2 unique values)
+                                 2.0: 735
+                                 1.0: 265
+
+  [fin42a]  (3 unique values)
+                                 nan: 735
+                                 1.0: 255
+                                 2.0: 7
+                                 3.0: 3
+
+  [fin43a]  (2 unique values)
+                                 nan: 735
+                                 2.0: 248
+                                 1.0: 17
+
+  [fin43b]  (3 unique values)
+                                 nan: 735
+                                 2.0: 255
+                                 1.0: 9
+                                 3.0: 1
+
+  [fin43d]  (2 unique values)
+                                 nan: 755
+                                 1.0: 223
+                                 2.0: 22
+
+  [fin43e]  (2 unique values)
+                                 nan: 978
+                                 2.0: 21
+                                 3.0: 1
+
+  [fin44a]  (5 unique values)
+                                   1: 424
+                                   2: 307
+                                   3: 250
+                                   5: 18
+                                   4: 1
+
+  [fin44b]  (4 unique values)
+                                   1: 544
+                                   2: 302
+                                   3: 149
+                                   5: 5
+
+  [fin44c]  (5 unique values)
+                                   2: 408
+                                   1: 327
+                                   3: 254
+                                   5: 10
+                                   4: 1
+
+  [fin44d]  (6 unique values)
+                                   3: 349
+                                   2: 317
+                                   1: 305
+                                   4: 19
+                                   5: 9
+                                   6: 1
+
+  [fin45]  (6 unique values)
+                                 2.0: 418
+                                 1.0: 205
+                                 nan: 171
+                                 4.0: 135
+                                 3.0: 59
+                                 5.0: 9
+                                 6.0: 3
+
+  [fin45_1]  (4 unique values)
+                                 1.0: 405
+                                 2.0: 369
+                                 3.0: 218
+                                 4.0: 8
+
+  [saved]  (2 unique values)
+                                   0: 637
+                                   1: 363
+
+  [borrowed]  (2 unique values)
+                                   1: 525
+                                   0: 475
+
+  [receive_wages]  (5 unique values)
+                                   4: 803
+                                   2: 110
+                                   1: 73
+                                   3: 11
+                                   5: 3
+
+  [receive_transfers]  (5 unique values)
+                                   4: 831
+                                   1: 77
+                                   5: 37
+                                   2: 28
+                                   3: 27
+
+  [receive_pension]  (5 unique values)
+                                   4: 958
+                                   1: 27
+                                   3: 7
+                                   2: 7
+                                   5: 1
+
+  [receive_agriculture]  (4 unique values)
+                                 4.0: 735
+                                 2.0: 223
+                                 3.0: 22
+                                 1.0: 20
+
+  [pay_utilities]  (5 unique values)
+                                   4: 537
+                                   2: 367
+                                   1: 60
+                                   3: 33
+                                   5: 3
+
+  [remittances]  (6 unique values)
+                                 5.0: 720
+                                 1.0: 177
+                                 2.0: 40
+                                 3.0: 39
+                                 4.0: 20
+                                 6.0: 4
+
+  [mobileowner]  (2 unique values)
+                                   1: 822
+                                   2: 178
+
+  [internetaccess]  (3 unique values)
+                                   2: 563
+                                   1: 435
+                                   3: 2
+
+  [anydigpayment]  (2 unique values)
+                                   0: 684
+                                   1: 316
+
+  [merchantpay_dig]  (2 unique values)
+                                 0.0: 940
+                                 1.0: 60
+
+  [year]  (1 unique values)
+                                2021: 1000
+
+--- NULL PERCENTAGE PER COLUMN ---
+  fin10_1a                                            100.00%
+  fin10_1b                                            100.00%
+  fin10_1c                                            100.00%
+  fin13_1a                                            100.00%
+  fin13_1b                                            100.00%
+  fin13_1c                                            100.00%
+  fin14c_2_China                                      100.00%
+  fin14_2_China                                       100.00%
+  fin13_1d                                            100.00%
+  fin13_1e                                            100.00%
+  fin13_1f                                            100.00%
+  fin10_1d                                            100.00%
+  fin10_1e                                            100.00%
+  fin31b1_China                                       100.00%
+  fin45_1_China                                       100.00%
+  fin34e                                               98.70%
+  fin8a                                                98.20%
+  fin43e                                               97.80%
+  fin27c2                                              97.50%
+  fin27c1                                              97.50%
+  fin8b                                                97.50%
+  fin8                                                 97.50%
+  fin39e                                               96.60%
+  fin14c_2                                             95.20%
+  fin14c                                               95.20%
+  fin14_2                                              94.40%
+  fin13c                                               94.40%
+  fin13a                                               94.40%
+  fin13b                                               94.40%
+  fin13d                                               94.40%
+  fin31b1                                              94.00%
+  fin39d                                               93.60%
+  fin4a                                                93.50%
+  fin35                                                92.70%
+  fin17a1                                              92.00%
+  fin29c1                                              88.20%
+  fin29c2                                              88.20%
+  fin34d                                               87.70%
+  fin22c                                               85.80%
+  fin27_1                                              85.10%
+  fin39a                                               84.70%
+  fin39b                                               84.70%
+  fin4                                                 82.60%
+  fin34a                                               80.60%
+  fin33                                                80.60%
+  fin34b                                               80.60%
+  fin29_1                                              78.70%
+  fin43d                                               75.50%
+  fin42a                                               73.50%
+  fin43b                                               73.50%
+  fin43a                                               73.50%
+  fin9a                                                72.20%
+  fin10a                                               71.00%
+  fin31c                                               60.00%
+  fin11_1                                              58.20%
+  fin11b                                               55.20%
+  fin11f                                               55.20%
+  fin11h                                               55.20%
+  fin11e                                               55.20%
+  fin11g                                               55.20%
+  fin11a                                               55.20%
+  fin11c                                               55.20%
+  fin11d                                               55.20%
+  fin31b                                               54.00%
+  fin31a                                               54.00%
+  fin1_1a                                              45.70%
+  fin1_1b                                              45.70%
+  fin10                                                44.80%
+  fin6                                                 44.80%
+  fin5                                                 44.80%
+  fin7                                                 44.80%
+  fin9                                                 44.80%
+  fin10b                                               44.80%
+  fin45                                                17.10%
+  fin24b                                                5.80%
+  fin24a                                                5.80%
+  fin14b                                                0.00%
+  fin14a1                                               0.00%
+  fin14a                                                0.00%
+  fin14_1                                               0.00%
+  account_mob                                           0.00%
+  account_fin                                           0.00%
+  account                                               0.00%
+  urbanicity_f2f                                        0.00%
+  inc_q                                                 0.00%
+  emp_in                                                0.00%
+  educ                                                  0.00%
+  age                                                   0.00%
+  pop_adult                                             0.00%
+  female                                                0.00%
+  wgt                                                   0.00%
+  wpid_random                                           0.00%
+  economycode                                           0.00%
+  regionwb                                              0.00%
+  economy                                               0.00%
+  fin2                                                  0.00%
+  fin32                                                 0.00%
+  fin30                                                 0.00%
+  fin20                                                 0.00%
+  fin17b                                                0.00%
+  fin16                                                 0.00%
+  fin24                                                 0.00%
+  fin26                                                 0.00%
+  fin17a                                                0.00%
+  fin22b                                                0.00%
+  fin22a                                                0.00%
+  fin28                                                 0.00%
+  fin42                                                 0.00%
+  fin44a                                                0.00%
+  fin44b                                                0.00%
+  fin38                                                 0.00%
+  fin37                                                 0.00%
+  fin44d                                                0.00%
+  fin44c                                                0.00%
+  fin45_1                                               0.00%
+  saved                                                 0.00%
+  borrowed                                              0.00%
+  receive_wages                                         0.00%
+  receive_transfers                                     0.00%
+  receive_pension                                       0.00%
+  receive_agriculture                                   0.00%
+  pay_utilities                                         0.00%
+  remittances                                           0.00%
+  mobileowner                                           0.00%
+  internetaccess                                        0.00%
+  anydigpayment                                         0.00%
+  merchantpay_dig                                       0.00%
+  year                                                  0.00%
+
+--- FLAGGED CANDIDATES ---
+
+TARGET candidates (credit / loan / borrow / account / financial access):
+  - account  (nunique=2, null=0.0%)
+  - account_fin  (nunique=2, null=0.0%)
+  - account_mob  (nunique=2, null=0.0%)
+  - fin1_1a  (nunique=3, null=45.7%)
+  - fin1_1b  (nunique=3, null=45.7%)
+  - fin2  (nunique=3, null=0.0%)
+  - fin4  (nunique=3, null=82.6%)
+  - fin4a  (nunique=2, null=93.5%)
+  - fin5  (nunique=3, null=44.8%)
+  - fin6  (nunique=3, null=44.8%)
+  - fin7  (nunique=3, null=44.8%)
+  - fin8  (nunique=2, null=97.5%)
+  - fin8a  (nunique=2, null=98.2%)
+  - fin8b  (nunique=2, null=97.5%)
+  - fin9  (nunique=3, null=44.8%)
+  - fin9a  (nunique=2, null=72.2%)
+  - fin10  (nunique=3, null=44.8%)
+  - fin10_1a  (nunique=0, null=100.0%)
+  - fin10_1b  (nunique=0, null=100.0%)
+  - fin10_1c  (nunique=0, null=100.0%)
+  - fin10_1d  (nunique=0, null=100.0%)
+  - fin10_1e  (nunique=0, null=100.0%)
+  - fin10a  (nunique=3, null=71.0%)
+  - fin10b  (nunique=2, null=44.8%)
+  - fin11_1  (nunique=3, null=58.2%)
+  - fin11a  (nunique=3, null=55.2%)
+  - fin11b  (nunique=3, null=55.2%)
+  - fin11c  (nunique=3, null=55.2%)
+  - fin11d  (nunique=3, null=55.2%)
+  - fin11e  (nunique=3, null=55.2%)
+  - fin11f  (nunique=3, null=55.2%)
+  - fin11g  (nunique=3, null=55.2%)
+  - fin11h  (nunique=3, null=55.2%)
+  - fin13_1a  (nunique=0, null=100.0%)
+  - fin13_1b  (nunique=0, null=100.0%)
+  - fin13_1c  (nunique=0, null=100.0%)
+  - fin13_1d  (nunique=0, null=100.0%)
+  - fin13_1e  (nunique=0, null=100.0%)
+  - fin13_1f  (nunique=0, null=100.0%)
+  - fin13a  (nunique=2, null=94.4%)
+  - fin13b  (nunique=3, null=94.4%)
+  - fin13c  (nunique=3, null=94.4%)
+  - fin13d  (nunique=3, null=94.4%)
+  - fin14_1  (nunique=3, null=0.0%)
+  - fin14_2  (nunique=3, null=94.4%)
+  - fin14_2_China  (nunique=0, null=100.0%)
+  - fin14a  (nunique=3, null=0.0%)
+  - fin14a1  (nunique=3, null=0.0%)
+  - fin14b  (nunique=3, null=0.0%)
+  - fin14c  (nunique=3, null=95.2%)
+  - fin14c_2  (nunique=2, null=95.2%)
+  - fin14c_2_China  (nunique=0, null=100.0%)
+  - fin16  (nunique=2, null=0.0%)
+  - fin17a  (nunique=2, null=0.0%)
+  - fin17a1  (nunique=3, null=92.0%)
+  - fin17b  (nunique=3, null=0.0%)
+  - fin20  (nunique=3, null=0.0%)
+  - fin22a  (nunique=2, null=0.0%)
+  - fin22b  (nunique=3, null=0.0%)
+  - fin22c  (nunique=2, null=85.8%)
+  - fin24  (nunique=8, null=0.0%)
+  - fin24a  (nunique=4, null=5.8%)
+  - fin24b  (nunique=5, null=5.8%)
+  - fin26  (nunique=3, null=0.0%)
+  - fin27_1  (nunique=2, null=85.1%)
+  - fin27c1  (nunique=2, null=97.5%)
+  - fin27c2  (nunique=2, null=97.5%)
+  - fin28  (nunique=3, null=0.0%)
+  - fin29_1  (nunique=2, null=78.7%)
+  - fin29c1  (nunique=2, null=88.2%)
+  - fin29c2  (nunique=2, null=88.2%)
+  - fin30  (nunique=3, null=0.0%)
+  - fin31a  (nunique=2, null=54.0%)
+  - fin31b  (nunique=2, null=54.0%)
+  - fin31b1  (nunique=2, null=94.0%)
+  - fin31b1_China  (nunique=0, null=100.0%)
+  - fin31c  (nunique=3, null=60.0%)
+  - fin32  (nunique=3, null=0.0%)
+  - fin33  (nunique=2, null=80.6%)
+  - fin34a  (nunique=2, null=80.6%)
+  - fin34b  (nunique=2, null=80.6%)
+  - fin34d  (nunique=2, null=87.7%)
+  - fin34e  (nunique=2, null=98.7%)
+  - fin35  (nunique=2, null=92.7%)
+  - fin37  (nunique=3, null=0.0%)
+  - fin38  (nunique=3, null=0.0%)
+  - fin39a  (nunique=2, null=84.7%)
+  - fin39b  (nunique=3, null=84.7%)
+  - fin39d  (nunique=3, null=93.6%)
+  - fin39e  (nunique=2, null=96.6%)
+  - fin42  (nunique=2, null=0.0%)
+  - fin42a  (nunique=3, null=73.5%)
+  - fin43a  (nunique=2, null=73.5%)
+  - fin43b  (nunique=3, null=73.5%)
+  - fin43d  (nunique=2, null=75.5%)
+  - fin43e  (nunique=2, null=97.8%)
+  - fin44a  (nunique=5, null=0.0%)
+  - fin44b  (nunique=4, null=0.0%)
+  - fin44c  (nunique=5, null=0.0%)
+  - fin44d  (nunique=6, null=0.0%)
+  - fin45  (nunique=6, null=17.1%)
+  - fin45_1  (nunique=4, null=0.0%)
+  - fin45_1_China  (nunique=0, null=100.0%)
+  - saved  (nunique=2, null=0.0%)
+  - borrowed  (nunique=2, null=0.0%)
+
+PROTECTED candidates (gender / female / sex):
+  - female  (nunique=2, null=0.0%)
+
+FEATURE candidates (income / education / age / urban / rural / employment):
+  - age  (nunique=71, null=0.0%)
+  - educ  (nunique=3, null=0.0%)
+  - urbanicity_f2f  (nunique=2, null=0.0%)
+  - receive_wages  (nunique=5, null=0.0%)

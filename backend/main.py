@@ -1,6 +1,7 @@
 import io
+import json
+import os
 import uuid
-from pathlib import Path
 from typing import Dict, List
 
 import pandas as pd
@@ -10,6 +11,9 @@ from fastapi.responses import JSONResponse
 
 from audit import run_full_audit
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEMO_DATA_PATH = os.path.join(BASE_DIR, "data", "nepal_clean.csv")
+METADATA_PATH = os.path.join(BASE_DIR, "data", "nepal_metadata.json")
 
 app = FastAPI(title="FairLens API")
 
@@ -150,21 +154,34 @@ async def audit(
 
 @app.get("/demo")
 async def demo():
-    csv_path = Path(__file__).parent / "demo_dataset.csv"
-    if not csv_path.exists():
-        return _error(f"Demo dataset not found at {csv_path}", status_code=500)
+    if not os.path.exists(DEMO_DATA_PATH):
+        return _error(f"Demo dataset not found at {DEMO_DATA_PATH}", status_code=500)
 
     try:
-        df = pd.read_csv(csv_path)
+        df = pd.read_csv(DEMO_DATA_PATH)
     except Exception as e:
         return _error(f"Failed to load demo dataset: {e}", status_code=500)
 
     try:
-        audit_result = run_full_audit(df, target_col="loan_approved", protected_col="gender")
+        audit_result = run_full_audit(df, target_col="has_account", protected_col="is_female")
     except Exception as e:
         return _error(f"Demo audit failed: {e}", status_code=500)
 
     return _build_response(audit_result)
+
+
+@app.get("/demo/metadata")
+async def demo_metadata():
+    if not os.path.exists(METADATA_PATH):
+        return _error(f"Demo metadata not found at {METADATA_PATH}", status_code=500)
+
+    try:
+        with open(METADATA_PATH, "r", encoding="utf-8") as f:
+            metadata = json.load(f)
+    except Exception as e:
+        return _error(f"Failed to load demo metadata: {e}", status_code=500)
+
+    return metadata
 
 
 @app.get("/columns")

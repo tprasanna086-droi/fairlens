@@ -13,29 +13,60 @@ const STATUS_TEXT = {
   biased: 'text-red-600',
 }
 
+function DatasetInfoCard() {
+  return (
+    <div className="bg-blue-50/70 border border-blue-200 border-l-4 border-l-indigo-500 rounded-lg px-4 py-3">
+      <h3 className="text-sm font-semibold text-slate-900">
+        Nepal Financial Inclusion Survey 2021
+      </h3>
+      <p className="text-xs text-slate-500 mb-2">
+        Source: World Bank Global Findex 2021
+      </p>
+      <ul className="text-sm text-slate-700 space-y-0.5">
+        <li>• 58.8% of adults have a financial account</li>
+        <li>• Women: 54.9% · Men: 63.2%</li>
+        <li>• Raw gender gap: 8.3 percentage points</li>
+      </ul>
+      <p className="text-xs text-slate-500 italic mt-2">
+        Audit below shows model-detected bias, which exceeds the raw gap due
+        to compounding feature interactions.
+      </p>
+    </div>
+  )
+}
+
 export default function App() {
   const [file, setFile] = useState(null)
   const [auditResult, setAuditResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [isDemo, setIsDemo] = useState(false)
 
   useEffect(() => {
     setAuditResult(null)
     setError(null)
+    setIsDemo(false)
   }, [file])
 
-  const handleResult = (data) => {
+  const handleDemoResult = (data) => {
     setAuditResult(data)
+    setIsDemo(true)
+    setError(null)
+  }
+
+  const handleUploadResult = (data) => {
+    setAuditResult(data)
+    setIsDemo(false)
     setError(null)
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <header className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
-        <div className="flex items-baseline gap-3">
+        <div className="flex flex-col">
           <h1 className="text-2xl font-bold tracking-tight">FairLens</h1>
-          <span className="text-slate-400 text-sm hidden sm:inline">
-            Algorithmic Bias Auditor
+          <span className="text-slate-400 text-xs mt-0.5">
+            Algorithmic bias auditing · Nepal financial inclusion data
           </span>
         </div>
         <a
@@ -55,7 +86,7 @@ export default function App() {
               Quick start
             </h2>
             <DemoButton
-              onResult={handleResult}
+              onResult={handleDemoResult}
               onLoading={setLoading}
               onError={setError}
             />
@@ -74,7 +105,7 @@ export default function App() {
             <section>
               <ColumnPicker
                 file={file}
-                onAuditResult={handleResult}
+                onAuditResult={handleUploadResult}
                 onLoading={setLoading}
                 onError={setError}
               />
@@ -128,26 +159,32 @@ export default function App() {
 
               <GaugeChart metrics={auditResult.metrics} />
 
+              {isDemo && <DatasetInfoCard />}
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <MetricCard
                   name="Demographic Parity"
                   description="Approval rate gap"
                   data={auditResult.metrics.demographic_parity}
+                  humanize={isDemo}
                 />
                 <MetricCard
                   name="Disparate Impact"
                   description="Ratio of approval rates"
                   data={auditResult.metrics.disparate_impact}
+                  humanize={isDemo}
                 />
                 <MetricCard
                   name="Equal Opportunity"
                   description="True positive rate gap"
                   data={auditResult.metrics.equal_opportunity}
+                  humanize={isDemo}
                 />
                 <MetricCard
                   name="Equalized Odds"
                   description="TPR & FPR difference"
                   data={auditResult.metrics.equalized_odds}
+                  humanize={isDemo}
                 />
               </div>
 

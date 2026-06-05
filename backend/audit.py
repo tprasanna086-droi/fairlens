@@ -26,6 +26,9 @@ def load_and_prepare(df: pd.DataFrame, target_col: str, protected_col: str) -> T
     X = df.drop(columns=[target_col, protected_col])
     for col in X.select_dtypes(include=['object', 'category']).columns:
         X[col] = LabelEncoder().fit_transform(X[col].astype(str))
+    for col in X.columns:
+        if str(X[col].dtype) in {"Int64", "Int32", "Int8", "UInt64", "UInt32", "UInt8"}:
+            X[col] = X[col].astype(float)
     return X, y, protected
 
 
