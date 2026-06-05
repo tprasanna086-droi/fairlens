@@ -3,7 +3,7 @@
 FairLens is an open-source tool for auditing machine learning models for algorithmic bias. Upload any CSV dataset, choose your target and protected attribute columns, and get a full fairness audit across four industry-standard metrics.
 
 ## Live Demo
-[Coming soon]
+[https://fairlens-indol.vercel.app](https://fairlens-indol.vercel.app)
 
 ## Features
 - Four fairness metrics: Demographic Parity, Disparate Impact, Equal Opportunity, Equalized Odds
